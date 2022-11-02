@@ -119,13 +119,14 @@ def configureReactNativePom(def pom) {
 }
 
 afterEvaluate { project ->
-    // some Gradle build hooks ref:
+    // Some Gradle build hooks ref:
     // https://www.oreilly.com/library/view/gradle-beyond-the/9781449373801/ch03.html
     task androidJavadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
         project.getConfigurations().getByName('implementation').setCanBeResolved(true)
-        classpath += files(project.getConfigurations().getByName('implementation').asList())
+        // TODO: понять, почему не компилит с этой строкой и нужна ли она вообще
+        // classpath += files(project.getConfigurations().getByName('implementation').asList())
         include '**/*.java'
     }
 
